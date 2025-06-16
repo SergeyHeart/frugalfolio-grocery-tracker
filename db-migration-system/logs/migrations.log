@@ -1,0 +1,53 @@
+[2025-06-16 07:52:58] Database connection established successfully
+[2025-06-16 07:52:58] Migration manager initialized successfully
+[2025-06-16 07:52:58] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 07:52:58] Processing migration: V2__initial_schema.sql
+[2025-06-16 07:52:58] Transaction started for: V2__initial_schema.sql
+[2025-06-16 07:53:03] Database connection established successfully
+[2025-06-16 07:53:03] Migration manager initialized successfully
+[2025-06-16 07:53:03] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 07:53:03] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 07:53:03] Processing migration: V3__test_migration.sql
+[2025-06-16 07:53:03] Transaction started for: V3__test_migration.sql
+[2025-06-16 07:53:25] Database connection established successfully
+[2025-06-16 07:53:25] Migration manager initialized successfully
+[2025-06-16 07:53:25] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 07:53:25] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 07:53:25] Skipping already applied migration: V3__test_migration.sql
+[2025-06-16 07:53:33] Database connection established successfully
+[2025-06-16 07:53:33] Migration manager initialized successfully
+[2025-06-16 07:53:33] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 07:53:33] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 07:53:33] Skipping already applied migration: V3__test_migration.sql
+[2025-06-16 08:10:22] Database connection established successfully
+[2025-06-16 08:10:22] Migration manager initialized successfully
+[2025-06-16 08:10:22] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 08:10:22] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 08:10:22] Skipping already applied migration: V3__test_migration.sql
+[2025-06-16 08:10:22] Processing migration: V4__add_notes_to_expenses.sql
+[2025-06-16 08:10:22] Transaction started for: V4__add_notes_to_expenses.sql
+[2025-06-16 08:11:35] Database connection established successfully
+[2025-06-16 08:11:35] Migration manager initialized successfully
+[2025-06-16 08:11:35] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 08:11:35] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 08:11:35] Skipping already applied migration: V3__test_migration.sql
+[2025-06-16 08:11:35] Skipping already applied migration: V4__add_notes_to_expenses.sql
+[2025-06-16 08:18:59] Database connection established successfully
+[2025-06-16 08:18:59] Migration manager initialized successfully
+[2025-06-16 08:18:59] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 08:18:59] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 08:18:59] Skipping already applied migration: V3__test_migration.sql
+[2025-06-16 08:18:59] Skipping already applied migration: V4__add_notes_to_expenses.sql
+[2025-06-16 08:18:59] Processing migration: V5__remove_notes_from_expenses.sql
+[2025-06-16 08:18:59] Transaction started for: V5__remove_notes_from_expenses.sql
+[2025-06-16 08:18:59] Successfully applied migration: V5__remove_notes_from_expenses.sql
+[2025-06-16 08:33:13] Database connection established successfully
+[2025-06-16 08:33:13] Migration manager initialized successfully
+[2025-06-16 08:33:13] Skipping already applied migration: V1__schema_versions.sql
+[2025-06-16 08:33:13] Skipping already applied migration: V2__initial_schema.sql
+[2025-06-16 08:33:13] Skipping already applied migration: V3__test_migration.sql
+[2025-06-16 08:33:13] Skipping already applied migration: V4__add_notes_to_expenses.sql
+[2025-06-16 08:33:13] Skipping already applied migration: V5__remove_notes_from_expenses.sql
+[2025-06-16 08:33:13] Processing migration: V6__remove_test_migration_table.sql
+[2025-06-16 08:33:13] Transaction started for: V6__remove_test_migration_table.sql
+[2025-06-16 08:33:13] Successfully applied migration: V6__remove_test_migration_table.sql
