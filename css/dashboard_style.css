@@ -1,0 +1,863 @@
+/* ============================================================
+   Dashboard Stylesheet (dashboard_style.css)
+   ============================================================ */
+
+/* =====================
+   CSS VARIABLES
+   ===================== */
+:root {
+    /* Colors */
+    --card-bg: #fff;
+    --text-primary: #333;
+    --text-secondary: #555;
+    --text-muted: #888;
+    --color-increase: #E53E3E;
+    --color-decrease: #4CAF50;
+    --icon-bg: #f0f4f8;
+    --icon-color: #555;
+    --tracker-border-color: #e2e8f0;
+	--tracker-item-bg: #f8f9fa;
+    --row3-footer-border-color: var(--tracker-border-color);
+    --row3-footer-text-color: #a0aec0;
+
+    /* Dimensions */
+    --card-border-radius: 12px;
+    --card-padding: 18px;
+    --card-padding-sm: 12px;
+    --card-padding-xs: 10px;
+    --chart-fixed-height: 600px;
+
+    /* Effects */
+    --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* =====================
+   TOOLTIP STYLES
+   ===================== */
+.card-title .info-tooltip {
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 6px;
+    height: 1em;
+}
+.card-title .info-tooltip i[data-feather] {
+    vertical-align: middle;
+    width: 0.7em;
+    height: 0.7em;
+    font-size: 0.7em;
+    stroke-width: 2;
+    opacity: 0.4;
+    color: #aaa;
+    pointer-events: none;
+}
+.card-title .info-tooltip .info-svg-icon {
+    display: inline-block;
+    width: .7em;
+    height: .7em;
+    vertical-align: middle;
+    margin-left: 4px;
+    transition: color 0.2s;
+}
+
+/* =====================
+   DASHBOARD GRID LAYOUT
+   ===================== */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+    align-items: stretch;
+}
+
+/* =====================
+   GENERAL CARD STYLES
+   ===================== */
+.dashboard-card {
+    background-color: var(--card-bg);
+    border-radius: var(--card-border-radius);
+    padding: var(--card-padding);
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+    color: var(--text-secondary);
+	overflow: hidden;
+}
+
+/* Card Header */
+.dashboard-card .card-header:not(.tracker-header) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    min-height: 36px;
+    gap: 10px;
+}
+
+.dashboard-card .card-icon {
+    font-size: 1.1em;
+    color: var(--icon-color);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+	margin-top: 2px;
+}
+
+.dashboard-card .card-icon i {
+     line-height: 1;
+}
+
+/* Card Body */
+.dashboard-card .card-body:not(.tracker-body) {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.dashboard-card .card-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* Card Footer */
+.dashboard-card:not(.new-tracker-layout):not(.card-most-spent):not(.card-most-bought):not(.card-top-grouping):not(.card-bottom-grouping) .card-footer {
+    margin-top: auto;
+    padding-top: 8px;
+    font-size: 0.8em;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+
+/* =====================
+   ROW 1 CARDS (Modern Style)
+   ===================== */
+.card-recent-week,
+.card-avg-weekly,
+.card-avg-monthly,
+.card-inflation-check {
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(124,110,230,0.07);
+    border-radius: 14px;
+    padding: 1.7rem;
+    min-height: 200px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    border: 1px solid #f0f0fa;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+}
+
+.card-recent-week:hover,
+.card-avg-weekly:hover,
+.card-avg-monthly:hover,
+.card-inflation-check:hover {
+    box-shadow: 0 8px 32px 0 rgba(124,110,230,0.16);
+    transform: translateY(-2px) scale(1.01);
+    border-color: #e0e0f7;
+}
+
+/* Row 1 Card Header */
+.card-recent-week .card-header,
+.card-avg-weekly .card-header,
+.card-avg-monthly .card-header,
+.card-inflation-check .card-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: relative;
+    min-height: 48px;
+    margin-bottom: 0.5rem;
+    padding-right: 48px;
+}
+
+/* Row 1 Card Icon */
+.card-recent-week .card-icon,
+.card-avg-weekly .card-icon,
+.card-avg-monthly .card-icon,
+.card-inflation-check .card-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: #edeaff;
+    color: #555;
+    border-radius: 12px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35em;
+    box-shadow: none;
+    z-index: 2;
+}
+
+/* Row 1 Card Metrics */
+.card-recent-week .card-metric,
+.card-avg-weekly .card-metric,
+.card-avg-monthly .card-metric,
+.card-inflation-check .card-metric {
+    font-size: 2.1em;
+    font-weight: 600;
+    margin: 0.25em 0;
+    text-align: left;
+    color: #444;
+}
+
+/* Row 1 Card Titles */
+.card-recent-week .card-title,
+.card-avg-weekly .card-title,
+.card-avg-monthly .card-title,
+.card-inflation-check .card-title {
+    font-size: 1.08em;
+    font-weight: 500;
+    color: #222;
+    margin: 0.1em 0 0.7em;
+    text-align: left;
+}
+
+/* Row 1 Card Footer */
+.card-recent-week .card-footer,
+.card-avg-weekly .card-footer,
+.card-avg-monthly .card-footer,
+.card-inflation-check .card-footer {
+    font-size: 1em;
+    color: #3bb273;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    margin-top: auto;
+}
+
+/* Row 1 Metric Colors */
+.card-recent-week .card-metric.metric-increase,
+.card-avg-weekly .card-metric.metric-increase,
+.card-avg-monthly .card-metric.metric-increase,
+.card-inflation-check .card-metric.metric-increase {
+    color: var(--color-increase);
+}
+
+.card-recent-week .card-metric.metric-decrease,
+.card-avg-weekly .card-metric.metric-decrease,
+.card-avg-monthly .card-metric.metric-decrease {
+    color: var(--color-decrease);
+}
+
+.card-recent-week .card-metric.metric-neutral,
+.card-avg-weekly .card-metric.metric-neutral,
+.card-avg-monthly .card-metric.metric-neutral,
+.card-inflation-check .card-metric.metric-neutral {
+    color: var(--color-neutral);
+}
+
+/* =====================
+   TOOLTIP (GENERIC)
+   ===================== */
+.info-tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: help;
+}
+.info-tooltip .fa-info-circle {
+    color: #777;
+    font-size: 0.8em;
+    vertical-align: middle;
+}
+
+/* =====================
+   ROW 3 HEADER (GROUP CARDS)
+   ===================== */
+.card-header-row3 {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-right: 0;
+    position: static;
+}
+.card-header-row3 .metric-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-grow: 1;
+    overflow: hidden;
+    gap: 10px;
+    font-size: 0.95em;
+    font-weight: 500;
+    color: var(--text-primary);
+    padding-top: 6px;
+}
+.card-header-row3 .metric-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.card-header-row3 .metric-detail {
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-align: right;
+    color: var(--text-secondary);
+    padding-left: 5px;
+}
+
+/* =====================
+   CARD BODY (GENERIC)
+   ===================== */
+.dashboard-card .card-body:not(.tracker-body) {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+.dashboard-card .card-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+    margin: 0;
+}
+/* Title Margins */
+.card-recent-week .card-title,
+.card-avg-weekly .card-title,
+.card-avg-monthly .card-title,
+.card-inflation-check .card-title {
+    margin-top: 0;
+}
+.card-most-expensive .card-title,
+.card-most-popular .card-title,
+.card-top-group .card-title,
+.card-bottom-group .card-title {
+    margin-top: 5px;
+}
+
+/* =====================
+   CARD FOOTER (GENERIC)
+   ===================== */
+.dashboard-card:not(.new-tracker-layout):not(.card-most-spent):not(.card-most-bought):not(.card-top-grouping):not(.card-bottom-grouping) .card-footer {
+    margin-top: auto;
+    padding-top: 8px;
+    font-size: 0.8em;
+    color: var(--text-muted);
+    line-height: 1.3;
+}
+.dashboard-card .card-footer .comparison,
+.dashboard-card .card-footer .comparison-text {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.dashboard-card .card-footer .comparison.increase,
+.dashboard-card .card-footer .comparison-text.increase {
+    color: var(--color-increase);
+}
+.dashboard-card .card-footer .comparison.decrease,
+.dashboard-card .card-footer .comparison-text.decrease {
+    color: var(--color-decrease);
+}
+.dashboard-card .card-footer .comparison.neutral,
+.dashboard-card .card-footer .comparison-text.neutral {
+    color: var(--color-neutral);
+}
+.dashboard-card .card-footer .comparison-text span.decrease {
+    color: var(--color-decrease) !important;
+}
+.dashboard-card .card-footer .comparison-text span.increase {
+    color: var(--color-increase) !important;
+}
+.dashboard-card .no-data {
+    font-style: italic;
+    color: #aaa;
+}
+.dashboard-card .card-footer .comparison .fas,
+.dashboard-card .card-footer .comparison-text .fas {
+    font-size: 0.9em;
+    align-self: flex-start;
+    vertical-align: top;
+}
+
+/* =====================
+   ROW 1/2/3 CARD-SPECIFIC STYLES
+   ===================== */
+.card-inflation-check .card-metric .metric-unit {
+    font-size: 0.55em;
+    font-weight: 400;
+    color: #888;
+    margin-left: 2px;
+    vertical-align: baseline;
+}
+.card-inflation-check .comparison-text { font-size: 0.9em; }
+
+/* =====================
+   CHART CARD (ROW 2)
+   ===================== */
+.dashboard-card.card-chart {
+    padding: 0;
+    grid-column: span 3;
+    height: var(--chart-fixed-height);
+    min-height: var(--chart-fixed-height);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.card-chart .card-header-large {
+    display: flex;
+    align-items: flex-start;
+    padding: var(--card-padding);
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+.card-chart .card-icon { margin-top: 2px; }
+.card-chart .card-title-large-area { margin-left: 10px; }
+.card-chart .card-title-large {
+    font-size: 1.4em;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 2px 0;
+}
+.card-chart .card-subtitle-large {
+    font-size: 1.1em;
+    color: var(--text-muted);
+    margin: 0;
+}
+.card-chart .chart-body-area {
+    flex-grow: 1;
+    padding: 10px var(--card-padding) var(--card-padding) var(--card-padding);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card-chart .chart-body-area > canvas,
+.card-chart .chart-body-area > svg,
+.card-chart .chart-body-area > div:first-child {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    min-height: 0 !important;
+    min-width: 0 !important;
+}
+
+/* =====================
+   PRICE TRACKER (ROW 2/3)
+   ===================== */
+.dashboard-card.card-price-tracker.new-tracker-layout {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px 0 rgba(124,110,230,0.10);
+    border: none;
+    padding: 24px;
+    min-height: 600px;
+    max-height: 600px;
+    height: 600px;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch !important;
+}
+.new-tracker-layout .tracker-header {
+    padding: 0 0 12px 0;
+    margin-bottom: 0;
+    border-bottom: none;
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+}
+.new-tracker-layout .tracker-header .tracker-title {
+    font-size: 1.18em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    text-align: left;
+    flex-grow: 1;
+}
+.new-tracker-layout .tracker-header .card-date-label {
+    font-size: 1em;
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-top: 2px;
+}
+.new-tracker-layout .tracker-body {
+    margin-bottom: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+.new-tracker-layout .tracker-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.new-tracker-layout .tracker-list-item {
+    margin: 0;
+    padding: 0;
+}
+.new-tracker-layout .notification-item-card {
+    background: #f1f3f6;
+    border-radius: 12px;
+    padding: 16px 18px 12px 18px;
+    box-shadow: 0 2px 8px 0 rgba(124,110,230,0.06);
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: box-shadow 0.18s, transform 0.18s;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.new-tracker-layout .notification-item-card:hover {
+    box-shadow: 0 6px 18px 0 rgba(124,110,230,0.13);
+    transform: translateY(-2px) scale(1.01);
+}
+.new-tracker-layout .tracker-item-name {
+    font-size: 0.95em;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-bottom: 2px;
+}
+.new-tracker-layout .tracker-item-details {
+    font-size: 0.98em;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.new-tracker-layout .tracker-item-details .increase {
+    background: none;
+    color: #ff6b6b;
+    font-weight: 600;
+    font-size: 1em;
+    border-radius: 0;
+    padding: 0;
+    margin-left: 4px;
+    letter-spacing: 0.01em;
+    box-shadow: none;
+    display: inline;
+}
+.new-tracker-layout .notification-item-card.no-data {
+    text-align: center;
+    font-size: 0.95em;
+    color: var(--text-muted);
+    font-style: italic;
+    background: none;
+    box-shadow: none;
+    border: none;
+    padding: 18px 0;
+}
+
+/* =====================
+   ROW 3 CARDS (GROUP CARDS)
+   ===================== */
+.dashboard-card.card-most-spent,
+.dashboard-card.card-most-bought,
+.dashboard-card.card-top-grouping,
+.dashboard-card.card-bottom-grouping {
+    background: linear-gradient(135deg, #fff 80%, #f7f7fb 100%);
+    box-shadow: 0 4px 24px 0 rgba(124,110,230,0.10);
+    border-radius: 16px;
+    transition: box-shadow 0.2s, transform 0.2s;
+    border: 1px solid #f0f0fa;
+    min-height: 220px;
+    padding: 2.2rem 2rem 2rem 2rem;
+    justify-content: space-between;
+}
+.dashboard-card.card-most-spent:hover,
+.dashboard-card.card-most-bought:hover,
+.dashboard-card.card-top-grouping:hover,
+.dashboard-card.card-bottom-grouping:hover {
+    box-shadow: 0 8px 32px 0 rgba(124,110,230,0.16);
+    transform: translateY(-2px) scale(1.01);
+    border-color: #e0e0f7;
+}
+.card-header-row3 .card-icon {
+    box-shadow: 0 2px 8px 0 rgba(124,110,230,0.10);
+    border: 1.5px solid #edeaff;
+    width: 42px;
+    height: 42px;
+    font-size: 1.5em;
+}
+.card-header-row3 .card-titles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 1;
+}
+.card-header-row3 .card-title {
+    font-size: 1.18em;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2px;
+    letter-spacing: 0.01em;
+}
+.card-header-row3 .card-date-label {
+    font-size: 0.7em;
+    color: var(--text-muted);
+    line-height: 1.1;
+}
+.card-body-row3 {
+    margin-bottom: 10px;
+    padding-left: 0;
+}
+.card-body-row3 p {
+    margin: 0 0 4px 0;
+    line-height: 1.3;
+}
+.card-body-row3 p:last-child {
+    margin-bottom: 0;
+}
+.card-body-row3 .metric-primary {
+    font-size: 1.05em;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
+}
+.card-body-row3 .metric-secondary {
+    font-size: 0.98em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+.card-body-row3 .dimmed {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.93em;
+    margin-bottom: 0;
+}
+.card-footer-row3 {
+    border-top: 1px dashed #e0e0f7;
+    padding-top: 8px;
+    margin-top: 8px;
+    text-align: left;
+    font-size: 0.85em;
+    color: var(--row3-footer-text-color);
+    line-height: 1.2;
+}
+.card-footer-row3 p {
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.card-footer-row3 .footer-icon {
+    font-size: 1em;
+    color: #bcbcd6;
+    margin-right: 4px;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+}
+.card-footer-row3 .no-data {
+    font-size: 1em;
+    color: var(--row3-footer-text-color);
+}
+
+/* =====================
+   MOBILE PAGE TITLE
+   ===================== */
+.mobile-page-title-content {
+    display: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1rem;
+}
+body.sidebar-collapsed .mobile-page-title-content,
+body.mobile-view .mobile-page-title-content {
+    display: block;
+}
+body.sidebar-collapsed .dashboard-grid,
+body.mobile-view .dashboard-grid {
+    margin-top: 0;
+}
+
+/* =====================
+   RESPONSIVE ADJUSTMENTS
+   ===================== */
+@media (max-width: 100em) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        grid-template-areas:
+          "recent   avgWk"
+          "avgMon   inflate"
+          "chart    chart"
+          "tracker  tracker"
+          "popular  topGrp"
+          "bottomG  expensive";
+        .dashboard-card {
+             min-height: auto;
+            padding: var(--card-padding-sm);
+        }
+    }
+    .dashboard-card.card-recent-week     { grid-area: recent; }
+    .dashboard-card.card-avg-weekly      { grid-area: avgWk; }
+    .dashboard-card.card-avg-monthly     { grid-area: avgMon; }
+    .dashboard-card.card-inflation-check { grid-area: inflate; }
+    .dashboard-card.card-chart           { grid-area: chart; }
+    .dashboard-card.new-tracker-layout   { grid-area: tracker; }
+    .dashboard-card.card-most-popular    { grid-area: popular; }
+    .dashboard-card.card-top-group       { grid-area: topGrp; }
+    .dashboard-card.card-bottom-group    { grid-area: bottomG; }
+    .dashboard-card.card-most-expensive  { grid-area: expensive; }
+    .dashboard-card.card-price-tracker.new-tracker-layout {
+        height: 530px;
+        min-height: 530px;
+        max-height: 530px;
+    }
+    .new-tracker-layout .tracker-header { padding: var(--card-padding-sm); }
+    .new-tracker-layout .tracker-body { padding: var(--card-padding-sm); }
+    .new-tracker-layout .notification-item-card { padding: 8px 10px; }
+}
+@media (max-width: 75em) {
+    .card-title .info-tooltip { margin-left: 3px; }
+    .card-title .info-tooltip .info-svg-icon {
+        width: 0.7em;
+        height: 0.7em;
+        margin-left: 3px;
+    }
+}
+@media (max-width: 56.25em) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        grid-template-areas:
+          "recent   avgWk"
+          "avgMon   inflate"
+          "chart    chart"
+          "tracker  tracker"
+          "popular  topGrp"
+          "bottomG  expensive";
+    }
+    .dashboard-grid { gap: 10px; }
+    .dashboard-card { padding: var(--card-padding-xs); border-radius: 8px; }
+    .dashboard-card.new-tracker-layout, .dashboard-card.card-chart { padding: 0; }
+    .dashboard-card.card-chart {
+        height: 450px;
+        min-height: 450px;
+    }
+    .new-tracker-layout .tracker-header { padding: var(--card-padding-xs); }
+    .new-tracker-layout .tracker-body { padding: var(--card-padding-xs); }
+    .new-tracker-layout .notification-item-card { padding: 6px 8px; }
+    .new-tracker-layout .notification-item-card.no-data { padding: var(--card-padding-xs); font-size: 0.75em;}
+}
+@media (max-width: 37.5em) {
+    .card-title .info-tooltip { margin-left: 2px; }
+    .card-title .info-tooltip .info-svg-icon {
+        width: 0.7em;
+        height: 0.7em;
+        margin-left: 2px;
+    }
+    .card-header-row3,
+    .card-header-row3 .card-title,
+    .card-body-row3,
+    .card-body-row3 .metric-primary,
+    .card-body-row3 .metric-secondary,
+    .new-tracker-layout .tracker-item-name,
+    .new-tracker-layout .tracker-item-details,
+    .card-most-spent .metric-primary,
+    .card-most-spent .metric-secondary,
+    .card-most-bought .metric-primary,
+    .card-most-bought .metric-secondary,
+    .card-top-grouping .metric-primary,
+    .card-top-grouping .metric-secondary,
+    .card-bottom-grouping .metric-primary,
+    .card-bottom-grouping .metric-secondary {
+        font-size: 0.7em;
+    }
+    .dashboard-card { font-size: 1em; }
+    .dashboard-card .card-title,
+    .card-title-large,
+    .card-subtitle-large,
+    .tracker-title,
+    .card-most-spent .card-title,
+    .card-most-bought .card-title,
+    .card-top-grouping .card-title,
+    .card-bottom-grouping .card-title {
+        font-size: 0.95em;
+    }
+    .card-chart .card-title-large { font-size: 0.9em; }
+    .card-chart .card-subtitle-large { font-size: 0.8em; }
+    .dashboard-card .card-metric { font-size: 0.93em; }
+    .dashboard-card .metric-primary { font-size: 0.80em; }
+    .dashboard-card .metric-secondary { font-size: 0.92em; }
+    .dashboard-card .card-footer { font-size: 0.60em !important; }
+    .dashboard-card .card-body { font-size: 0.92em; }
+    .dashboard-card .card-header { font-size: 0.92em; }
+    .dashboard-card .card-date-label { font-size: 0.92em; }
+    .dashboard-card .dimmed { font-size: 0.92em; }
+    .dashboard-card .info-tooltip { font-size: 0.92em; }
+    .dashboard-card .info-svg-icon { font-size: 0.92em; }
+    .dashboard-card .card-icon,
+    .card-header-row3 .card-icon,
+    .card-chart .card-icon,
+    .tracker-icon,
+    .dashboard-card .card-icon i[data-feather],
+    .dashboard-card .card-icon svg,
+    .card-header-row3 .card-icon i[data-feather],
+    .card-header-row3 .card-icon svg,
+    .card-chart .card-icon i[data-feather],
+    .card-chart .card-icon svg,
+    .tracker-icon i[data-feather],
+    .tracker-icon svg {
+        width: 16px;
+        height: 16px;
+        font-size: 16px;
+        min-width: 16px;
+        min-height: 16px;
+        max-width: 16px;
+        max-height: 16px;
+        line-height: 16px;
+    }
+    .new-tracker-layout .tracker-item-details { flex-direction: column; gap: 0; }
+    .new-tracker-layout .tracker-item-details .increase { display: block; margin-left: 0; margin-top: 2px; }
+    .card-footer-row3 p[title] { font-size: 0.60em; }
+    .card-footer-row3 p,
+    .card-footer-row3 .footer-icon,
+    .card-footer-row3 .card-date-label { font-size: 0.60em; }
+    .card-footer-row3 .footer-icon i[data-feather],
+    .card-footer-row3 .footer-icon svg { width: 1.4em; height: 1.4em; }
+    .tracker-title + .card-date-label,
+    .card-most-spent .card-date-label,
+    .card-most-bought .card-date-label,
+    .card-top-grouping .card-date-label,
+    .card-bottom-grouping .card-date-label { font-size: 0.75em !important; }
+}
+
+.card-most-spent .metric-primary,
+.card-most-bought .metric-primary,
+.card-top-grouping .metric-primary,
+.card-bottom-grouping .metric-primary {
+    margin-top: 8px;
+}

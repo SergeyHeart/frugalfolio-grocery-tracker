@@ -1,0 +1,191 @@
+/* ==========================================================================
+   Component: Calculator Page Layout
+   ========================================================================== */
+
+.calculator-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.calculator-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap; /* Allow wrapping for smaller screens, will be overridden by media query if needed */
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+.calculator-input-area,
+.calculator-list-area {
+    flex: 1;
+    min-width: 300px; /* Minimum width before wrapping */
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    background-color: #fdfdfd;
+    display: flex;
+    flex-direction: column;
+    /* max-height: 80vh; /* REMOVE or adjust - no longer strictly needed if not scrolling independently */
+}
+
+.calculator-input-area h3,
+.calculator-list-area h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    flex-shrink: 0;
+}
+
+/* --- List Area Styles --- */
+.calculator-list-area .shopping-list-table-wrapper {
+    flex-grow: 1; /* Allow table wrapper to take available space */
+    overflow-y: auto; /* Allow vertical scroll for the table if it gets too long */
+    overflow-x: auto; /* Allow horizontal scroll for the table on small screens */
+    border: 1px solid #eee;
+    border-radius: 4px;
+    position: relative; /* For sticky headers if used */
+}
+
+#shopping_list_table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+#shopping_list_table thead {
+   position: sticky; /* Keep sticky table header */
+   top: 0;
+   background-color: #f8f8f8; /* Ensure background for sticky header */
+   z-index: 10;
+}
+
+#shopping_list_table th,
+#shopping_list_table td {
+    border: 1px solid #eee;
+    padding: 5px 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#shopping_list_table th {
+    font-weight: bold;
+}
+
+#shopping_list_table tbody.list-group-header tr {
+    background-color: #e9ecef;
+    position: sticky;
+    /* Adjust top based on thead's actual rendered height.
+       If thead has 1 row of text, ~30-35px is usually okay. */
+    top: 30px; /* Example: if thead height is approx 30px */
+    z-index: 9;
+}
+
+#shopping_list_table tbody.list-group-header td {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #555;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 8px;
+}
+
+/* --- Table Footer (for Total Price) --- */
+#shopping_list_table tfoot {
+    position: sticky; /* Keep sticky if list is scrollable */
+    bottom: 0;
+    background-color: #f0f0f0;
+    z-index: 10; /* Above tbody content */
+    border-top: 2px solid #ccc;
+}
+
+#shopping_list_table tfoot td {
+    font-weight: bold;
+    padding: 8px;
+}
+/* Add padding to the bottom of the last tbody if tfoot is sticky and overlaps */
+/* This depends on the height of your tfoot */
+.shopping-list-table-wrapper > table > tbody:last-of-type {
+    /* padding-bottom: 40px; /* Example: if tfoot height is 40px */
+}
+
+
+/* --- Clear Button (Now back inside list area) --- */
+.calculator-list-area .clear-button-container {
+     display: block; /* Ensure it's visible */
+     flex-shrink: 0; /* Don't let it shrink */
+     padding-top: 15px;
+     margin-top: auto; /* Push to bottom if list area has extra space */
+     border-top: 1px solid #eee; /* Optional separator */
+     text-align: right;
+}
+
+/* --- Autocomplete Styles (No change needed) --- */
+#calc_suggestions {
+    position: absolute; z-index: 1001; display: none; background-color: white;
+    border: 1px solid #ccc; border-top: none; border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; max-height: 180px;
+    overflow-y: auto; overflow-x: hidden;
+}
+#calc_suggestions div {
+    padding: 8px 12px; cursor: pointer; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; border-bottom: 1px solid #eee;
+}
+#calc_suggestions div:last-child { border-bottom: none; }
+#calc_suggestions div.suggestion-highlight,
+#calc_suggestions div:hover { background-color: #e9ecef; color: #333; }
+
+#calc_current_item_details {
+    margin-top: 15px; padding: 10px; border: 1px dashed #ccc;
+}
+#calc_current_item_details hr {
+    margin: 10px 0; border: none; border-top: 1px solid #eee;
+}
+
+/* --- Remove Item Button Style --- */
+.remove-item-btn {
+    padding: 1px 5px; font-size: 0.8em; line-height: 1;
+}
+
+/* --- REMOVE STICKY FOOTER STYLES --- */
+.calculator-summary-footer {
+    display: none !important; /* Ensure it's hidden */
+}
+
+/* ==========================================================================
+   Responsive Adjustments for Calculator
+   ========================================================================== */
+@media (max-width: 768px) {
+    .calculator-container {
+        flex-direction: column; /* Stack sections on smaller screens */
+        gap: 20px;
+    }
+
+    .calculator-input-area,
+    .calculator-list-area {
+        min-width: 100%; /* Take full width when stacked */
+        flex-basis: auto; /* Allow natural height */
+        max-height: none; /* Remove max-height restriction */
+    }
+
+    /* Adjustments for table on mobile if needed */
+    #shopping_list_table {
+        font-size: 0.85em; /* Slightly smaller font for mobile table */
+    }
+    #shopping_list_table th,
+    #shopping_list_table td {
+         padding: 4px 6px;
+    }
+
+    /* If you want to un-stick table headers/footers on mobile for simplicity */
+    /*
+    #shopping_list_table thead,
+    #shopping_list_table tbody.list-group-header tr,
+    #shopping_list_table tfoot {
+        position: static;
+    }
+    .shopping-list-table-wrapper > table > tbody:last-of-type {
+        padding-bottom: 0;
+    }
+    */
+}

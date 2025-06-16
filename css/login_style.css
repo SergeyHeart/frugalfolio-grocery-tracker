@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Login Page Styles (/css/login_style.css)
+   ========================================================================== */
+
+/* --- Base and Body --- */
+body.login-page-body {
+    /* --- IMPORTANT: Update path to your background image --- */
+    background-image: url('/images/draft.png');
+    background-color: #212529; /* Dark fallback color */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Keeps background static on scroll */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sensible default */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scrollbars */
+}
+
+/* --- Login Container (Centers the box) --- */
+.login-container {
+    max-width: 330px;
+    width: 100%;
+}
+
+/* --- Login Box --- */
+.login-box {
+    /* Frosted Glass Effect */
+    background-color: rgba(45, 51, 57, 0.8); /* Adjust alpha for transparency */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari prefix */
+
+    border-radius: 16px; /* Rounded corners */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    padding: 20px 25px;
+    text-align: center;
+    color: #f8f9fa; /* Light text */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    position: relative;
+    overflow: hidden;
+
+    /* Entry Animation */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.6s 0.2s ease-out forwards;
+}
+
+/* --- Header Elements --- */
+.login-header {
+    margin-bottom: 15px; /* Reduce space below header */
+}
+
+.logo-title-wrapper {
+    margin-bottom: 15px; /* Reduce space below logo/title */
+    gap: 8px; /* Reduce space between logo and title */
+}
+
+.login-logo {
+    max-width: 38px; /* <<< Make logo smaller */
+    vertical-align: middle;
+}
+
+.login-brand-title {
+    font-size: 1.3em; /* <<< Make title smaller */
+    font-weight: 700;
+    color: #fff;
+    vertical-align: middle;
+}
+
+.login-box h2 {
+    margin-bottom: 4px; /* Reduce space */
+    font-size: 1.2em; /* <<< Make "Welcome Back" smaller */
+    color: #fff;
+    font-weight: 600;
+}
+
+.login-box p {
+    color: #b8c2cc;
+    font-size: 0.8em; /* <<< Make subtitle smaller */
+    margin-bottom: 20px; /* Reduce space */
+}
+
+/* --- Error Message --- */
+.login-error-message {
+    /* Optional: Reduce padding/font-size slightly if needed */
+    /* padding: 8px 12px; */
+    /* font-size: 0.85em; */
+    margin-bottom: 15px; /* Reduce space */
+}
+
+/* --- Form Elements --- */
+.login-form .form-group {
+    margin-bottom: 14px; /* Reduce space between form groups */
+	text-align: left;
+}
+
+.login-form label {
+    margin-bottom: 4px; /* Reduce space */
+    font-size: 0.8em; /* <<< Make labels smaller */
+}
+
+.login-form label i {
+    margin-right: 7px;
+    width: 1em; /* Consistent icon width */
+    opacity: 0.8;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 9px 12px;
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    font-size: 0.95em;
+    box-sizing: border-box;
+    color: #f8f9fa; /* Light input text */
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* --- Input Placeholders --- */
+.login-form input::placeholder { color: #868e96; opacity: 1; }
+.login-form input:-ms-input-placeholder { color: #868e96; } /* IE Edge */
+.login-form input::-ms-input-placeholder { color: #868e96; } /* IE */
+
+/* --- Input Focus States --- */
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #ffc107; /* Accent color */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.15); /* Soft glow */
+}
+
+/* --- Form Actions (Button) --- */
+.login-form .form-actions {
+    margin-top: 20px; /* Reduce space */
+    margin-bottom: 12px; /* Reduce space */
+}
+
+.btn-login {
+    display: block;
+    width: 100%;
+    padding: 10px 18px;
+    background-color: #ffc107; /* Accent color */
+    color: #343a40; /* Dark text for contrast */
+    border: none;
+    border-radius: 6px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: background-color 0.3s ease, transform 0.15s ease, box-shadow 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #ffd54f; /* Lighter hover */
+    transform: translateY(-1px); /* Subtle lift */
+    box-shadow: 0 3px 10px rgba(255, 193, 7, 0.2); /* Soft glow on hover */
+}
+
+.btn-login:active {
+     transform: translateY(0px) scale(0.99); /* Press effect */
+     box-shadow: 0 1px 5px rgba(255, 193, 7, 0.15);
+}
+
+/* --- Footer Links --- */
+.login-footer {
+    margin-top: 15px;
+    font-size: 0.85em;
+}
+
+.login-footer a {
+    color: #ffd54f; /* Accent color link */
+    text-decoration: none;
+}
+
+.login-footer a:hover {
+    text-decoration: underline;
+    color: #fff;
+}
+
+/* --- Animation --- */
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 500px) {
+    .login-box {
+        padding: 30px 25px;
+    }
+    .login-box h2 {
+        font-size: 1.5em;
+    }
+    .login-form input[type="text"],
+    .login-form input[type="password"],
+    .btn-login {
+        padding: 11px 14px;
+        font-size: 1em;
+    }
+}

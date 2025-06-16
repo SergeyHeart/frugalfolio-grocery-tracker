@@ -1,0 +1,452 @@
+/* css/navigation.css */
+
+/* --- CSS Variables --- */
+:root {
+    --sidebar-bg: #2c5282;
+    --sidebar-text: #e2e8f0;
+    --sidebar-text-hover: #ffffff;
+    --sidebar-icon-color: #a0aec0;
+    --sidebar-icon-hover: #e2e8f0;
+    --sidebar-active-text: #1a365d;
+    --sidebar-active-icon: #1a365d;
+    --sidebar-scrollbar-thumb: rgba(255, 255, 255, 0.2);
+    --sidebar-header-border: rgba(255, 255, 255, 0.08);
+    --sidebar-brand-title-color: #ffffff;
+    --sidebar-width-expanded: 260px;
+    --sidebar-width-collapsed: 85px;
+    --top-bar-height: 72px;
+    --sidebar-transition-speed: 0.25s;
+    --sidebar-corner-radius: 15px;
+    --active-link-curve-size: 20px; /* Ensure this matches path values if hardcoded */
+    --content-background-color: #f8f9fa; /* This is your WHITE color */
+}
+
+/* ==================================================== */
+/* --- Sidebar Container (Base) --- */
+/* ==================================================== */
+.sidebar {
+    grid-column: 1 / 2; grid-row: 1 / 2;
+    background-color: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    display: flex; flex-direction: column;
+    height: 100vh; position: sticky; top: 0;
+    overflow: hidden;
+    z-index: 1000; /* Base z-index for sidebar */
+    width: var(--sidebar-width-expanded);
+    transform: translateX(0);
+    border-top-right-radius: var(--sidebar-corner-radius);
+    border-bottom-right-radius: var(--sidebar-corner-radius);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+body:not(.preload) .sidebar {
+    transition: width var(--sidebar-transition-speed) ease-in-out,
+                transform var(--sidebar-transition-speed) ease-in-out,
+                border-radius var(--sidebar-transition-speed) ease-in-out;
+}
+.sidebar:hover { overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 6px; }
+.sidebar::-webkit-scrollbar-thumb { background-color: var(--sidebar-scrollbar-thumb); border-radius: 3px; }
+
+/* --- Sidebar Header --- */
+.sidebar-header {
+    min-height: var(--top-bar-height); height: var(--top-bar-height);
+    padding: 0 1.25rem;
+    border-bottom: 1px solid var(--sidebar-header-border);
+    flex-shrink: 0; white-space: nowrap; overflow: hidden;
+    display: flex; align-items: center; box-sizing: border-box;
+    position: relative; /* Ensures z-index creates a new stacking context */
+    z-index: 5; /* MODIFIED: To be above curve divs */
+}
+body:not(.preload) .sidebar-header { transition: padding var(--sidebar-transition-speed) ease-in-out; }
+.sidebar .brand { display: flex; align-items: center; text-decoration: none; gap: 10px; width: 100%; }
+body:not(.preload) .sidebar .brand { transition: transform var(--sidebar-transition-speed) ease-in-out; }
+.sidebar .logo-placeholder { width: 28px; height: 28px; flex-shrink: 0; }
+.sidebar .brand .title { font-size: 1.35em; font-weight: 600; color: var(--sidebar-brand-title-color); opacity: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+body:not(.preload) .sidebar .brand .title { transition: opacity 0.15s ease-in-out 0.05s; }
+.sidebar-close-btn { display: none; }
+
+/* ==================================================== */
+/* --- Sidebar Navigation Links --- */
+/* ==================================================== */
+.sidebar .nav-links {
+    flex-grow: 1;
+    padding-top: 0.8rem;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar .nav-links ul { list-style: none; padding: 0; margin: 0; }
+.sidebar .nav-links li {
+    margin: 0 0 4px 0;
+    position: relative; /* For curve divs */
+}
+
+/* --- Base Link Style --- */
+.sidebar .nav-links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.8rem 1.25rem;
+    margin-left: 10px;
+    margin-right: 10px;
+    color: var(--sidebar-text);
+    white-space: nowrap;
+    border-radius: calc(var(--active-link-curve-size) / 2);
+    z-index: 2; /* Link content (text/icon) above background curve elements */
+}
+body:not(.preload) .sidebar .nav-links a {
+    transition: color 0.2s ease, background-color 0.2s ease,
+                margin-right 0.2s ease, border-radius 0.2s ease;
+}
+.sidebar .nav-links a i {
+    width: 22px; font-size: 1.1em; text-align: center;
+    color: var(--sidebar-icon-color);
+    flex-shrink: 0; margin-right: 12px;
+}
+body:not(.preload) .sidebar .nav-links a i { transition: color 0.2s ease; }
+.sidebar .nav-links a span {
+    font-size: 1.08em; font-weight: 500; opacity: 1;
+    white-space: nowrap;
+}
+body:not(.preload) .sidebar .nav-links a span { transition: opacity 0.1s ease-in-out; }
+
+/* --- Hover State (Non-Active) --- */
+.sidebar .nav-links li:not(.active) a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--sidebar-text-hover);
+}
+.sidebar .nav-links li:not(.active) a:hover i { color: var(--sidebar-icon-hover); }
+
+/* --- Active Link Style --- */
+.sidebar .nav-links li.active a {
+    background-color: var(--content-background-color); /* WHITE */
+    color: var(--sidebar-active-text);
+    font-weight: 600;
+    margin-right: 0;
+    border-top-left-radius: var(--active-link-curve-size);
+    border-bottom-left-radius: var(--active-link-curve-size);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    position: relative; /* Keep for its own stacking context */
+    z-index: 2; /* Ensure <a> tag content is above curve elements */
+}
+.sidebar .nav-links li.active a i { color: var(--sidebar-active-icon); }
+
+/* ====================================================== */
+/* === CLIP-PATH DIVS for Curve Effect (WELLNEST STYLE) ====== */
+/* ====================================================== */
+
+.sidebar .nav-links li.active .curve-visualizer {
+    position: absolute;
+    width: var(--active-link-curve-size);
+    height: var(--active-link-curve-size); /* Keep original height */
+    pointer-events: none;
+}
+
+/* Background Square (WHITE) */
+.sidebar .nav-links li.active .curve-top-bg,
+.sidebar .nav-links li.active .curve-bottom-bg {
+    background-color: var(--content-background-color); /* WHITE */
+    right: 0;
+    z-index: 0; /* Behind the blue foreground shapes */
+}
+
+/* Foreground Clipped Shape (BLUE) */
+.sidebar .nav-links li.active .curve-top-fg,
+.sidebar .nav-links li.active .curve-bottom-fg {
+    background-color: var(--sidebar-bg); /* BLUE */
+    right: 0;
+    z-index: 1; /* Blue shapes on top of their respective white BG squares */
+                 /* Active link 'a' (z-index 2) is on top of these. */
+}
+
+/* Positioning for top curve pieces */
+.sidebar .nav-links li.active .curve-top-bg,
+.sidebar .nav-links li.active .curve-top-fg {
+    top: calc(-1 * var(--active-link-curve-size));
+}
+
+/* Positioning for bottom curve pieces */
+.sidebar .nav-links li.active .curve-bottom-bg,
+.sidebar .nav-links li.active .curve-bottom-fg {
+    bottom: calc(-1 * var(--active-link-curve-size));
+}
+
+/*
+    TOP CURVE: Blue foreground piece (.curve-top-fg)
+    Shape is square with bottom-right "scooped out".
+    Adjusted path extends straight edges by 1px to cover white line.
+    (Assumes --active-link-curve-size: 20px for coordinates)
+*/
+.sidebar .nav-links li.active .curve-top-fg {
+    clip-path: path('M 20 -1 L -1 -1 L -1 20 Q 20 21 20 -1 Z');
+}
+
+/*
+    BOTTOM CURVE: Blue foreground piece (.curve-bottom-fg)
+    Shape is square with top-right "scooped out".
+    Adjusted path extends straight edges by 1px to cover white line.
+    (Assumes --active-link-curve-size: 20px for coordinates)
+*/
+.sidebar .nav-links li.active .curve-bottom-fg {
+    clip-path: path('M -1 0 Q 20 0 20 21 L -1 21 Z'); 
+}
+
+
+/* --- Ensure old pseudo-elements are gone --- */
+.sidebar .nav-links li.active::before,
+.sidebar .nav-links li.active::after {
+    display: none; content: none;
+}
+
+
+/* ... (Keep STATE 1: COLLAPSED Sidebar and STATE 2 & 3: MOBILE VIEW, TOP BAR STYLES) ... */
+/* Ensure these states hide the new curve divs if needed */
+/* ==================================================== */
+/* === STATE 1: COLLAPSED Sidebar === */
+/* ==================================================== */
+body.sidebar-collapsed .sidebar {
+    width: var(--sidebar-width-collapsed);
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+body.sidebar-collapsed .sidebar-header {
+    padding: 0;
+    justify-content: center;
+}
+body.sidebar-collapsed .sidebar .brand {
+    width: auto;
+    justify-content: center;
+    transform: translateX(0);
+}
+body.sidebar-collapsed .sidebar .brand .title {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+body.sidebar-collapsed .sidebar .nav-links a {
+    justify-content: center;
+    padding: 0.9rem 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 8px;
+}
+body.sidebar-collapsed .sidebar .nav-links a i {
+    margin-right: 0;
+    font-size: 1.3em;
+}
+body.sidebar-collapsed .sidebar .nav-links a span {
+    opacity: 0;
+    width: 0;
+    display: none;
+}
+/* Hide the new curve divs in collapsed mode */
+body.sidebar-collapsed .sidebar .nav-links li.active .curve-visualizer {
+    display: none;
+}
+body.sidebar-collapsed .sidebar .nav-links li.active a {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--sidebar-text-hover);
+}
+body.sidebar-collapsed .sidebar .nav-links li.active a i {
+    color: var(--sidebar-text-hover);
+}
+
+
+/* ==================================================== */
+/* === STATE 2 & 3: MOBILE VIEW === */
+/* ==================================================== */
+body.mobile-view .sidebar {
+    position: fixed; height: 100vh;
+    transform: translateX(-100%);
+    box-shadow: 4px 0 15px rgba(0,0,0,0.2);
+    width: var(--sidebar-width-expanded) !important;
+    overflow-y: auto;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+	z-index: 1010 !important; /* Make sure it's higher than the overlay (1005) */
+    pointer-events: auto !important; /* Explicitly allow clicks */
+}
+body.mobile-view .sidebar .brand .title,
+body.mobile-view .sidebar .nav-links a span {
+    opacity: 1 !important;
+    width: auto !important;
+    display: inline-block !important;
+}
+body.mobile-view .sidebar .nav-links a i {
+    margin-right: 12px !important;
+    font-size: 1.1em !important;
+}
+body.mobile-view .sidebar .nav-links a {
+    padding: 0.8rem 1.25rem !important;
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    border-radius: calc(var(--active-link-curve-size) / 2) !important;
+    justify-content: flex-start !important;
+}
+body.mobile-view .sidebar-header {
+    padding: 0 1.25rem !important;
+    justify-content: space-between !important;
+}
+/* Hide the new curve divs in mobile view */
+body.mobile-view .sidebar .nav-links li.active .curve-visualizer {
+    display: none !important;
+}
+body.mobile-view .sidebar .nav-links li.active a {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--sidebar-text-hover) !important;
+    border-radius: calc(var(--active-link-curve-size) / 2) !important;
+}
+body.mobile-view .sidebar .nav-links li.active a i {
+    color: var(--sidebar-text-hover) !important;
+}
+body.mobile-view.sidebar-overlay-visible .sidebar {
+    transform: translateX(0);
+	z-index: 1010 !important; /* Reiterate high z-index */
+    pointer-events: auto !important; /* Reiterate click allowance */
+}
+body.mobile-view.sidebar-overlay-visible .sidebar-close-btn {
+    display: block;
+}
+
+
+/* ==================================================== */
+/* === TOP BAR STYLES === */
+/* ==================================================== */
+.top-bar {
+    height: var(--top-bar-height);
+    min-height: var(--top-bar-height);
+    background-color: #fff;
+    border-bottom: 1px solid #e7eaf0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-sizing: border-box;
+}
+.top-bar-left, .top-bar-right { display: flex; align-items: center; gap: 1rem; }
+.sidebar-toggle { background: none; border: none; font-size: 1.4rem; color: var(--top-bar-icon-color); cursor: pointer; padding: 5px 8px; display: block; line-height: 1; margin-left: 0; transition: color 0.2s ease; }
+.sidebar-toggle:hover { color: var(--top-bar-icon-hover); }
+.top-bar-page-title { display: none; font-size: 1.3rem; font-weight: 600; color: var(--top-bar-text-primary); margin: 0; margin-left: 15px; white-space: nowrap; }
+.mobile-brand { display: none; opacity: 0; align-items: center; text-decoration: none; color: var(--top-bar-text-primary); margin-right: 10px; transition: opacity 0.2s ease-in-out; }
+.mobile-brand .logo-placeholder { width: 30px; height: 30px; }
+body.mobile-view .mobile-brand { display: flex !important; opacity: 1 !important; }
+body.mobile-view .top-bar-page-title + .mobile-brand { margin-left: auto; }
+.top-bar-icon-btn { background: none; border: none; font-size: 1.38rem; color: var(--top-bar-icon-color); cursor: pointer; padding: 5px; position: relative; }
+.top-bar-icon-btn:hover { color: var(--top-bar-icon-hover); }
+.top-bar-icon-btn .badge { position: absolute; top: 0; right: 0; background-color: #dc3545; color: white; font-size: 0.7em; padding: 2px 5px; border-radius: 50%; font-weight: bold; }
+.user-profile-area { display: flex; align-items: center; gap: 0.75rem; cursor: pointer; font-size: 1.04em; }
+.user-icon { font-size: 1.85em; color: var(--top-bar-icon-color); line-height: 1;}
+.user-name { font-size: 0.9em; font-weight: 500; color: var(--top-bar-text-secondary); }
+.notification-area { position: relative; display: inline-block; }
+.notification-badge { position: absolute; top: -2px; right: -2px; background-color: #dc3545; color: white; font-size: 0.7em; font-weight: bold; padding: 2px 5px; border-radius: 50%; min-width: 16px; height: 16px; line-height: 12px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.3); }
+.notification-dropdown {
+    display: none;
+    position: fixed; /* Changed from absolute */
+    top: var(--top-bar-height); /* Position it just below the top bar */
+    right: 1.5rem; /* Distance from the right edge of the viewport. Adjust as desired. */
+    /* margin-top: 8px; /* Not needed as 'top' directly positions it with 'fixed' */
+    min-width: 300px;
+    width: 350px; /* Consider using a fixed width or a responsive max-width */
+    max-width: 90vw; /* Ensures it doesn't get too wide on very small screens, adjust as needed */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 1050; /* Ensure it's above other content */
+    /* Calculate max-height to prevent going off-screen, leaving some padding */
+    max-height: calc(100vh - var(--top-bar-height) - 3rem); /* (viewport height - top_bar_height - bottom_padding) */
+    overflow-y: auto;
+}
+.notification-dropdown h5 { font-size: 0.9em; font-weight: 600; padding: 10px 15px; margin: 0; border-bottom: 1px solid #eee; color: #333; }
+.notification-dropdown ul { list-style: none; padding: 0; margin: 0; }
+.notification-dropdown li { padding: 8px 15px; border-bottom: 1px solid #f5f5f5; font-size: 0.85em; line-height: 1.4; }
+.notification-dropdown li:last-child { border-bottom: none; }
+.notification-dropdown li strong { color: #444; }
+.notification-dropdown li span[style*="color: red"] { font-weight: bold; }
+.notification-dropdown li span[style*="text-decoration: line-through"] { color: #888; margin-right: 3px; margin-left: 5px; }
+.notification-dropdown p { padding: 15px; margin: 0; text-align: center; color: #777; font-size: 0.9em; }
+
+/* --- NEW: Notification Page Overlay --- */
+.notification-page-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent black. Adjust opacity (last value) as needed. */
+    z-index: 1040; /* Below notification dropdown (1050), above most other content. */
+    /* display: none; /* Initial state is controlled by inline style or JS */
+    opacity: 0; /* Start fully transparent */
+    visibility: hidden; /* Start not visible and not interactive */
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out; /* Smooth fade */
+}
+
+.notification-page-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.user-profile-dropdown-container {
+    position: relative; /* For positioning the dropdown menu */
+    display: inline-block;
+}
+
+.user-profile-area:focus + .user-dropdown-menu,
+
+
+.user-dropdown-menu {
+    display: none; /* CRITICAL: Hidden by default, JS will show it */
+    position: absolute;
+    top: calc(100% + 5px); /* Position below the trigger with a 5px gap */
+    right: 0; /* Align to the right of the container */
+    background-color: #ffffff;
+    min-width: 180px; /* Adjust as needed */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15); /* Softer shadow */
+    z-index: 1050; /* Ensure it's above other content, including notification dropdown if that's 1050 or lower */
+    border-radius: 6px; /* Rounded corners for the dropdown */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    padding: 8px 0; /* Padding top/bottom for the menu items */
+}
+
+.user-dropdown-item {
+    color: #333;
+    padding: 10px 20px; /* Adjust padding */
+    text-decoration: none;
+    display: flex; /* Use flex for icon alignment */
+    align-items: center;
+    font-size: 0.9em;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+}
+
+.user-dropdown-item i.fa-fw { /* For Font Awesome fixed-width icons */
+    margin-right: 10px;
+    opacity: 0.8;
+    width: 1.2em; /* Ensure consistent icon spacing */
+    text-align: center;
+}
+
+.user-dropdown-item:hover {
+    background-color: #f5f5f5; /* Hover effect for items */
+    color: #000;
+}
+
+/* === MEDIA QUERIES for Top Bar items (add this section or integrate if you have one) === */
+@media (max-width: 767px) {
+    .user-profile-area .user-name {
+        display: none;
+    }
+
+    /* EXPLICITLY HIDE top-bar-page-title on mobile view,
+       even if sidebar is collapsed (which is unlikely in mobile overlay mode but good for robustness) */
+    body.mobile-view .top-bar-page-title {
+        display: none !important; /* Use !important to ensure it overrides the body.sidebar-collapsed rule if both classes are present */
+    }
+}

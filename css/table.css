@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Component: Expense Table & Related Controls
+   ========================================================================== */
+
+/* --- Table Controls (Above Table) --- */
+.table-controls {
+    margin-bottom: 1rem;
+    /* Styles for search, dropdown etc. will go here */
+}
+
+/* --- Main Expense Table --- */
+.expenses-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Reset if container adds margin */
+}
+
+.expenses-table th,
+.expenses-table td {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.expenses-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Zebra striping */
+.expenses-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Row Hover & Highlight Transitions */
+.expenses-table tbody tr {
+     transition: background-color 1.5s ease-out;
+}
+.expenses-table tbody tr:hover {
+    background-color: #f1f1f1 !important;
+    transition: background-color 0.1s ease-in;
+}
+.highlight-row {
+    background-color: #fff3cd !important;
+    transition: background-color 1.5s ease-out;
+}
+.highlight-row:nth-child(even) { /* Ensure highlight overrides even */
+    background-color: #fff3cd !important;
+}
+
+
+/* Specific Cell Styling */
+.no-expenses {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    padding: 20px;
+}
+
+/* Numeric alignment */
+.expenses-table td:nth-child(3), /* Qty */
+.expenses-table td:nth-child(4), /* Weight */
+.expenses-table td:nth-child(6), /* Price/Unit */
+.expenses-table td:nth-child(7) { /* Total Price */
+    text-align: right;
+}
+
+/* Action Cell & Icons */
+.expenses-table td.actions-cell {
+    text-align: center;
+    white-space: nowrap;
+}
+
+.action-icon {
+    display: inline-block;
+    padding: 4px 6px;
+    margin: 0 4px;
+    color: #555;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.action-icon:hover {
+    color: #2a7aaf;
+}
+.action-icon .fa-trash-alt {
+     color: #a77; /* Muted red default */
+}
+.action-icon .fa-trash-alt:hover {
+     color: #dc3545; /* Brighter red hover for delete */
+}
+
+
+/* Sortable Table Headers */
+.expenses-table th a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.expenses-table th.sorted a {
+    font-weight: bold;
+    color: #007bff;
+}
+
+
+/* --- Pagination --- */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 0 2px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #2a7aaf;
+    border-radius: 4px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.pagination a:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination span { /* Disabled links / current page info */
+    color: #777;
+    background-color: #f9f9f9;
+    cursor: default;
+}
+.pagination span.current-page { /* Optional: Style current page number */
+    font-weight: bold;
+    border-color: #aaa;
+}
+
+/* --- Bulk Actions (Below Table) --- */
+.bulk-actions {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.bulk-actions label {
+    margin-bottom: 0;
+}
+.bulk-actions select {
+    padding: 5px;
+}
+
+
+/* ==========================================================================
+   Responsive Table Styles
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Horizontal scroll for table on small screens */
+    .expenses-table-container {
+        overflow-x: auto;
+        width: 100%;
+        margin-top: 15px;
+        border: 1px solid #eee;
+        background: #fff;
+        border-radius: 6px;
+        -webkit-overflow-scrolling: touch;
+    }
+    .expenses-table {
+        min-width: 900px; /* Ensure table doesn't shrink too much */
+        font-size: 0.92em;
+        border: none;
+        margin-top: 0;
+    }
+    .expenses-table th,
+    .expenses-table td {
+        padding: 7px 8px;
+    }
+    .expenses-table th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: #f8f8f8;
+    }
+    .expenses-table thead {
+        background: #f8f8f8;
+    }
+    .pagination a, .pagination span {
+        padding: 4px 8px;
+        font-size: 0.9em;
+    }
+    .bulk-actions {
+        flex-wrap: wrap;
+    }
+    /* Optional: visually hint at scroll */
+    .expenses-table-container::after {
+        content: '← Scroll to see more →';
+        display: block;
+        text-align: center;
+        color: #aaa;
+        font-size: 0.95em;
+        margin: 6px 0 2px 0;
+    }
+}

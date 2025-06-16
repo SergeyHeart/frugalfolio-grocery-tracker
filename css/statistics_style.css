@@ -1,0 +1,250 @@
+/* --- Tab System --- */
+.tabs-container {
+    margin-top: 20px; /* Space above tabs */
+}
+
+ul.stats-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0 0; /* Remove bottom margin to connect with border */
+    display: flex;
+    border-bottom: 2px solid #ccc; /* Line below tabs */
+}
+
+ul.stats-tabs li {
+    margin-bottom: -2px; /* Overlap border-bottom to make active tab connect */
+}
+
+ul.stats-tabs a.tab-link {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #555;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-bottom: none; /* Remove bottom border initially */
+    border-radius: 5px 5px 0 0; /* Round top corners */
+    margin-right: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+ul.stats-tabs a.tab-link:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+/* Active Tab Style */
+ul.stats-tabs li.active a.tab-link {
+    background-color: #fff; /* Match content background */
+    color: #333;
+    font-weight: bold;
+    border-color: #ccc; /* Match border */
+    border-bottom: 2px solid #fff; /* White border to cover the main border-bottom */
+}
+
+/* Content Panels */
+.stats-content {
+    background-color: #fff; /* Optional: background for the content area */
+    padding: 20px;
+    border: 1px solid #ccc; /* Match tab border */
+    border-top: none;      /* Remove top border as tabs provide visual top */
+    border-radius: 0 0 5px 5px; /* Round bottom corners */
+}
+
+.tab-content-panel {
+    display: none; /* Hide inactive panels */
+}
+
+.tab-content-panel.active {
+    display: block; /* Show active panel */
+}
+
+/* Optional: Ensure cards inside panels don't have extra margins/borders */
+.tab-content-panel .stats-card {
+     margin-bottom: 0; /* Remove bottom margin if panel provides padding */
+     border: none; /* Remove card border if panel has one */
+     box-shadow: none; /* Remove card shadow if panel has one */
+     padding: 0; /* Remove card padding if panel provides it */
+     border-radius: 0;
+}
+.stats-container { /* Rename the container holding cards if using tabs */
+     /* Remove grid styles if using tabs */
+     /* display: block; */ 
+}
+
+/* Adjust chart container if needed */
+.tab-content-panel .chart-container {
+    /* Adjust height/width if necessary */
+}
+
+/* Container for the canvas */
+.chart-container {
+    position: relative; /* Needed for responsive chart */
+    /* height: 350px; Let chart determine height based on aspect ratio, or set specific aspect ratio */
+    width: 100%;   /* Ensure container takes full width */
+    max-width: 100%;
+    margin-top: 15px;
+    padding-bottom: 50%; /* Example: Create a 2:1 aspect ratio container (height is 50% of width) */
+                         /* Adjust this percentage for desired aspect ratio (e.g., 75% for 4:3) */
+                         /* OR set a fixed height like height: 350px; */
+}
+
+/* Style the canvas itself */
+#monthlySpendingChart, 
+#weeklySpendingChart { /* Apply to all chart canvases */
+    position: absolute; /* Position canvas absolutely within the container */
+    top: 0;
+    left: 0;
+    width: 100% !important;  /* Force width to fill container */
+    height: 100% !important; /* Force height to fill container */
+    max-width: 100%; /* Redundant but safe */
+    max-height: 100%;/* Redundant but safe */
+}
+
+/* Target the specific list using its class */
+.top-items-list {
+    list-style: none; /* Remove default list styling */
+    padding-left: 0;  /* Remove default padding */
+    margin-top: 10px; /* Add some space below the card header */
+}
+
+.top-items-list li {
+    display: flex;         /* Use flexbox for layout */
+    justify-content: space-between; /* Space out elements */
+    align-items: baseline; /* Align text nicely */
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0; /* Separator line */
+    gap: 10px;           /* Space between elements */
+}
+.top-items-list li:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+}
+
+.top-items-list .item-rank {
+    flex-shrink: 0;    /* Don't shrink the rank number */
+    color: #888;       /* Muted color for rank */
+    min-width: 25px;   /* Ensure consistent spacing for rank */
+    text-align: right; /* Right-align the number */
+    padding-right: 5px;
+}
+
+.top-items-list .item-name {
+    flex-grow: 1;      /* Allow name to take available space */
+    color: #555;
+    /* Optional: text overflow handling for long names */
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+}
+
+.top-items-list .item-total {
+    flex-shrink: 0;    /* Don't shrink the price/count */
+    font-weight: bold;
+    color: #333;
+    white-space: nowrap; /* Keep price/count on one line */
+    font-size: 0.95em; /* Slightly smaller */
+}
+
+.price-change-container {
+    display: flex;
+    gap: 20px; /* Space between increase/decrease cards */
+    flex-wrap: wrap; /* Wrap on small screens */
+}
+
+.price-increase-card, 
+.price-decrease-card {
+    flex: 1; /* Share space */
+    min-width: 250px; /* Minimum width before wrapping */
+    /* Reuse .stats-card styles or define specific ones */
+     border: 1px solid #eee; padding: 15px; border-radius: 4px;
+}
+
+.price-change-card h4 { /* Different heading style maybe */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+
+.price-change-list { /* Inherit from .dashboard-list or define */
+     list-style: decimal; /* Use numbers */
+     padding-left: 25px; 
+}
+.price-change-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+     /* Remove default dashboard list border/padding */
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.price-change-list .item-name {
+   flex-grow: 1;
+   margin-right: 10px;
+   color: #555;
+}
+.price-change-list .item-change {
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: #777;
+    font-size: 0.95em;
+}
+.price-change-list .item-change strong {
+    margin-left: 5px;
+}
+.price-change-list .item-change i { /* Style the arrow */
+    margin: 0 3px;
+}
+
+/* --- Month vs Previous Comparison --- */
+.month-comparison-summary {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    line-height: 1.8;
+}
+.month-comparison-summary strong {
+    font-size: 1.1em;
+}
+
+.month-comparison-details {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow lists to stack on small screens */
+}
+.month-comparison-details .stats-card {
+    flex: 1; /* Each list takes half the space */
+    min-width: 280px; /* Min width before wrapping */
+    /* Apply list styling if not already inherited */
+    border: 1px solid #eee;
+    padding: 15px;
+    border-radius: 4px;
+}
+.month-comparison-details h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #444;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 5px;
+}
+/* Ensure top-items-list styles apply here */
+.month-comparison-details .top-items-list {
+    /* Styles should be inherited or defined */
+}
+
+/* Error message styling */
+.chart-error-message {
+    color: red;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+}

@@ -1,0 +1,42 @@
+/* css/base.css - Keep previous version */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    line-height: 1.6;
+    font-size: 16px;
+
+    /* --- CHOOSE YOUR BACKGROUND --- */
+    /* Option A: Simple Light Background (like Hyper example) */
+    background-color: #f8f9fa;
+    color: #495057;
+
+    /* Option B: Illustrative Background */
+    /* background-image: url('/Frugalfolio/images/db_bgimg.png'); */
+    /* background-color: #f5eacf; */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* background-position: center center; */
+    /* background-attachment: fixed; */
+    /* color: #4f4a40; */
+
+    min-height: 100vh;
+    overflow-x: hidden; /* Keep this */
+}
+
+a { color: #3b82f6; text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: #2563eb; text-decoration: underline; }
+h1, h2, h3, h4, h5, h6 { color: #343a40; margin-bottom: 0.75rem; font-weight: 600; }
+p { margin-bottom: 1rem; }
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }

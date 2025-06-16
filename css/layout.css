@@ -1,0 +1,161 @@
+/* css/layout.css - NO CHANGES NEEDED FOR STEP 5 */
+
+/* --- CSS Variables --- */
+:root {
+    --sidebar-width-expanded: 240px;
+    --sidebar-width-collapsed: 75px;
+    --top-bar-height: 60px;
+    --sidebar-transition-speed: 0.25s;
+    --content-background: #f8f9fa; /* Light background for main area */
+}
+
+/* --- Main Application Layout --- */
+.app-container {
+    display: grid;
+    grid-template-columns: var(--sidebar-width-expanded) 1fr; /* Default: Expanded */
+    grid-template-rows: 1fr;
+    min-height: 100vh; position: relative;
+    /* Transition grid column for desktop collapse */
+    transition: grid-template-columns var(--sidebar-transition-speed) ease-in-out;
+    overflow-x: hidden; /* Prevent horizontal scroll from grid shift */
+}
+
+/* --- Sidebar Collapsed State --- */
+body.sidebar-collapsed .app-container {
+    grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+}
+/* Sidebar appearance changes are in navigation.css */
+
+
+/* --- Main Content Area --- */
+.main-content {
+    grid-column: 2 / 3; grid-row: 1 / 2;
+    display: flex; flex-direction: column;
+    background-color: var(--content-background);
+    height: 100vh; position: relative;
+    overflow: hidden; /* Prevent content breaking layout */
+    transition: margin-left var(--sidebar-transition-speed) ease-in-out;
+    margin-left: 0;
+}
+
+/* --- Top Bar Container --- */
+.top-bar {
+    flex-shrink: 0;
+    height: var(--top-bar-height);
+    position: sticky; top: 0; z-index: 999;
+    /* Styles in navigation.css */
+}
+
+/* --- Content Area BELOW Top Bar --- */
+.content-below-topbar {
+    flex-grow: 1;
+    padding: 1rem 2rem !important; /* Add 2rem left/right padding for comfortable spacing */
+    overflow-y: auto;
+	overflow-x: hidden;
+}
+/* Scrollbar styling */
+.content-below-topbar::-webkit-scrollbar { width: 8px; }
+.content-below-topbar::-webkit-scrollbar-track { background: #f1f1f1; }
+.content-below-topbar::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+.content-below-topbar::-webkit-scrollbar-thumb:hover { background: #aaa; }
+
+/* Optional content width wrapper */
+.main-content-wrapper {
+    max-width: 100% !important; /* Allow full width */
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100%;
+}
+
+/* Page Header Styling */
+.page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 25px; flex-wrap: wrap; gap: 15px; padding-bottom: 15px;
+    border-bottom: 1px solid #e7eaf0;
+}
+h2 { color: #343a40; font-weight: 600; font-size: 1.5rem; margin: 0; }
+
+/* Buttons (Keep Themed Styles) */
+.btn { display: inline-block; padding: 8px 16px; font-size: 0.85em; font-weight: 500; text-align: center; text-decoration: none; border: 1px solid transparent; border-radius: 6px; cursor: pointer; transition: all 0.2s ease-in-out; margin-left: 8px; letter-spacing: 0.3px; }
+.btn:first-child { margin-left: 0; }
+.btn-primary { background-color: #3b82f6; border-color: #3b82f6; color: white; }
+.btn-primary:hover { background-color: #2563eb; border-color: #2563eb; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(59, 130, 246, 0.3); }
+.btn-secondary { background-color: #6c757d; border-color: #6c757d; color: white; }
+.btn-secondary:hover { background-color: #5a6268; border-color: #5a6268; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(108, 117, 125, 0.2); }
+.btn-danger { background-color: #ef4444; border-color: #ef4444; color: white; }
+.btn-danger:hover { background-color: #dc2626; border-color: #dc2626; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(239, 68, 68, 0.3); }
+
+/* Alerts / Messages (Keep Themed Styles) */
+.alert { padding: 1rem 1.25rem; margin-bottom: 1.5rem; border: 1px solid transparent; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); color: #333; background-color: #e9ecef; border-color: #dee2e6; }
+.alert strong { font-weight: 600; }
+.alert-success { color: #0f5132; background-color: #d1e7dd; border-color: #badbcc; }
+.alert-danger { color: #842029; background-color: #f8d7da; border-color: #f5c2c7; }
+.alert-info { color: #055160; background-color: #cff4fc; border-color: #b6effb; }
+.alert-warning { color: #664d03; background-color: #fff3cd; border-color: #ffecb5; }
+
+/* Dashboard Grid (Keep) */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px; /* Match top spacing below last row */
+    width: 100%;
+}
+
+/* ==================================================== */
+/* --- RESPONSIVE & STATE ADJUSTMENTS --- */
+/* ==================================================== */
+
+/* State 2: Mobile View Trigger */
+body.mobile-view .app-container {
+    grid-template-columns: 1fr !important; /* Content always takes full width */
+}
+body.mobile-view .main-content {
+    grid-column: 1 / -1;
+    margin-left: 0 !important;
+}
+/* Sidebar itself becomes position:fixed via navigation.css */
+
+/* --- Background Overlay --- */
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay */
+    z-index: 1005; /* Below sidebar, above main content */
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+body.sidebar-overlay-visible .sidebar-overlay {
+    opacity: 1; visibility: visible;
+}
+
+/* State 3: Mobile Sidebar Overlay Visible */
+/* Prevent body scroll when mobile overlay is visible */
+body.sidebar-overlay-visible { overflow: hidden; }
+/* Sidebar appearance changes are in navigation.css */
+
+
+/* --- Media Queries (Content Layout Only) --- */
+@media (max-width: 992px) { /* Tablet Card Layout */
+    .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .dashboard-card.chart-card:not(.trend-widget) { grid-column: span 1; }
+    .dashboard-card.trend-widget,
+    .dashboard-card.top-items-card { grid-column: span 2; }
+}
+@media (max-width: 767px) { /* Mobile Card Layout & Padding */
+    /* JS adds mobile-view class below this */
+    .dashboard-grid { grid-template-columns: 1fr; gap: 15px;}
+    .dashboard-card { padding: 15px; overflow-wrap: break-word; }
+    .top-items-list .item-name { white-space: normal; }
+    .dashboard-card.chart-card:not(.trend-widget),
+    .dashboard-card.trend-widget,
+    .dashboard-card.top-items-card { grid-column: span 1; }
+
+    .content-below-topbar { padding: 1rem; }
+    .page-header { margin-bottom: 15px; padding-bottom: 10px; }
+    h2 { font-size: 1.3rem; }
+    .top-bar { padding: 0 1rem; }
+}
+
+/* Body Overflow Fix */
+body { overflow-x: hidden; }
