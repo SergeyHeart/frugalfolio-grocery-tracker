@@ -9,13 +9,19 @@
     <!-- Base/Layout CSS (Load these first) -->
     <link rel="stylesheet" href="/Frugalfolio/css/base.css?v=<?= time() ?>">
     <link rel="stylesheet" href="/Frugalfolio/css/layout.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="/Frugalfolio/css/navigation.css?v=<?= time() ?>">
-    <link rel="stylesheet" href="/Frugalfolio/css/table.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/Frugalfolio/css/navigation.css?v=<?= time() ?>">    <link rel="stylesheet" href="/Frugalfolio/css/table.css?v=<?= time() ?>">
     <link rel="stylesheet" href="/Frugalfolio/css/form.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/Frugalfolio/css/receipt_scanner_style.css?v=<?= time() ?>">
 
     <!-- Chart.js -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tesseract.js -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.0.3/dist/tesseract.min.js"></script>
 
     <?php
     if (isset($pageStylesheets) && is_array($pageStylesheets)) {

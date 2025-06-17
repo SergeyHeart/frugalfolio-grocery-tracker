@@ -61,6 +61,17 @@
                     <div class="curve-visualizer curve-top-fg"></div>
                     <div class="curve-visualizer curve-bottom-bg"></div>
                     <div class="curve-visualizer curve-bottom-fg"></div>
+                <?php endif; ?>            </li>
+            <li class="<?= ($currentPage == 'receipt_scanner.php') ? 'active' : '' ?>">
+                <a href="receipt_scanner.php">
+                    <i class="fas fa-receipt fa-fw"></i>
+                    <span>Receipt Scanner</span>
+                </a>
+                <?php if ($currentPage == 'receipt_scanner.php'): ?>
+                    <div class="curve-visualizer curve-top-bg"></div>
+                    <div class="curve-visualizer curve-top-fg"></div>
+                    <div class="curve-visualizer curve-bottom-bg"></div>
+                    <div class="curve-visualizer curve-bottom-fg"></div>
                 <?php endif; ?>
             </li>
              <?php // Add more links later if needed ?>
